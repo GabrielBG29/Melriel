@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Felices 4 meses 💖</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&family=Pacifico&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    overflow: hidden;
+    background: black;
+    font-family: 'Poppins', sans-serif;
+    color: white;
+}
+
+/* ESTRELLAS */
+.stars {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+}
+
+/* CONTENIDO INICIAL */
+.intro {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+/* TEXTO CENTRAL */
+.center-text {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Pacifico', cursive;
+    color: #ff69b4;
+    font-size: 50px;
+    text-align: center;
+    text-shadow: 0 0 15px #ff69b4;
+}
+
+/* BOTON CORAZON */
+.open-btn {
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 70px;
+    cursor: pointer;
+    animation: pulse 1.5s infinite;
+    text-shadow: 0 0 20px #ff69b4;
+}
+@keyframes pulse {
+    0% { transform: translateX(-50%) scale(1); }
+    50% { transform: translateX(-50%) scale(1.2); }
+    100% { transform: translateX(-50%) scale(1); }
+}
+
+/* PALABRAS */
+.word {
+    position: absolute;
+    color: #ff85c1;
+    animation: fall linear infinite;
+}
+@keyframes fall {
+    0% { transform: translateY(-50px); opacity: 1; }
+    100% { transform: translateY(110vh); opacity: 0; }
+}
+
+/* CORAZONES FONDO */
+.bg-heart {
+    position: absolute;
+    animation: floatUp linear infinite;
+}
+@keyframes floatUp {
+    0% { transform: translateY(100vh); opacity: 1; }
+    100% { transform: translateY(-10vh); opacity: 0; }
+}
+
+/* CARTA */
+.letter {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #111;
+    padding: 30px;
+    border-radius: 20px;
+    width: 300px;
+    box-shadow: 0 0 20px pink;
+    text-align: center;
+}
+.letter h1 {
+    font-family: 'Pacifico';
+    color: #ff69b4;
+}
+
+.button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: #ff69b4;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+}
+
+/* JUEGO */
+.game { display: none; }
+
+#score {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+#gameMessage {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #ff69b4;
+    font-weight: bold;
+}
+
+.heart {
+    position: absolute;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.final {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 30px;
+    color: #ff69b4;
+    font-family: 'Pacifico';
+}
+</style>
+</head>
+
+<body>
+
+<div class="stars"></div>
+
+<!-- reproductor oculto -->
+<div id="player" style="position:absolute; width:0; height:0;"></div>
+
+<!-- pantalla inicial -->
+<div class="intro" id="intro">
+    <div class="center-text">
+        Felices 4 meses juntos 💖 <br> mi esposa preciosa
+    </div>
+    <div class="open-btn" onclick="openLetter()">💖</div>
+</div>
+
+<!-- carta -->
+<div class="letter" id="letter">
+<h1>Para ti 💖</h1>
+<p>
+Felices 4 meses juntos mi amor 💖
+Que rápido pasa el tiempo, espero que asi de rápido pase para poder estar juntos mi cielo, nunca voy a parar de decirlo pero que bonito es tenerte en vida, tu me has hecho muy feliz y me complementas muuy bien, eres mi otra mitad, eres la mujer que siempre espere que llegara a mi vida, la mujer perfecta con la que quiero que se logre todo, en poco tiempo te convertiste en la personita mas especial en mi vida.
+Que bonito cumplir 4 meses contigo mi amor, aunque 4 meses parezca poco, todo lo que hemos hecho, como nos la hemos pasado como loquitos, como hablamos todos los días y nunca me aburro de estar contigo, eres todo lo que mi corazoncito ama y nunca te dejare de amar. Felices 4 meses juntos mi princesita hermosa.
+Te amo muchísimo 💕
+
+
+</p>
+<button class="button" onclick="startGame()">Jugar 💖</button>
+</div>
+
+<!-- juego -->
+<div class="game" id="game">
+<div id="score">Puntos: 0</div>
+<div id="gameMessage">Pícale a todos los corazones que puedas 💖</div>
+</div>
+
+<div class="final" id="final">
+Ganaste mi corazón para siempre 💖
+</div>
+
+<!-- API YOUTUBE -->
+<script src="https://www.youtube.com/iframe_api"></script>
+
+<script>
+let player;
+
+// crear reproductor
+function onYouTubeIframeAPIReady() {
+    player = new YT.Player('player', {
+        height: '0',
+        width: '0',
+        videoId: 'b-XkexlmElM',
+        playerVars: {
+            autoplay: 0,
+            loop: 1,
+            playlist: 'b-XkexlmElM'
+        }
+    });
+}
+
+// estrellas
+const starsContainer = document.querySelector('.stars');
+for (let i = 0; i < 200; i++) {
+    let star = document.createElement('div');
+    star.classList.add('star');
+    star.style.top = Math.random() * 100 + 'vh';
+    star.style.left = Math.random() * 100 + 'vw';
+    starsContainer.appendChild(star);
+}
+
+// palabras
+const words = [
+"Te amo 💖","Mi vida 💕","Eres mi todo ✨","Mi cielo 🌙","Mi princesa 👑",
+"Eres mi felicidad","Mi razón de sonreír","Mi corazón es tuyo",
+"Eres mi sueño","Mi mundo eres tú","Eres perfecta 💘"
+];
+
+let wordsInterval = setInterval(()=>{
+    let w = document.createElement("div");
+    w.className = "word";
+    w.innerText = words[Math.floor(Math.random() * words.length)];
+    w.style.left = Math.random() * 100 + "vw";
+    w.style.fontSize = (Math.random() * 15 + 15) + "px";
+    w.style.animationDuration = (Math.random() * 4 + 4) + "s";
+    document.body.appendChild(w);
+    setTimeout(()=>w.remove(),8000);
+},300);
+
+// corazones fondo
+let heartsInterval = setInterval(()=>{
+    let h=document.createElement("div");
+    h.className="bg-heart";
+    h.innerHTML="💖";
+    h.style.left=Math.random()*100+"vw";
+    h.style.animationDuration=(Math.random()*5+5)+"s";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),9000);
+},500);
+
+// abrir carta
+function openLetter(){
+    document.getElementById("intro").style.display="none";
+    clearInterval(wordsInterval);
+    clearInterval(heartsInterval);
+    document.getElementById("letter").style.display="block";
+
+    if(player){
+        player.playVideo();
+        player.setVolume(30);
+    }
+}
+
+// juego
+let score=0;
+
+function startGame(){
+    document.getElementById("letter").style.display="none";
+    document.getElementById("game").style.display="block";
+
+    let interval=setInterval(createHeart,500);
+
+    setTimeout(()=>{
+        clearInterval(interval);
+        document.getElementById("game").style.display="none";
+        document.getElementById("final").style.display="block";
+    },15000);
+}
+
+function createHeart(){
+    let heart=document.createElement("div");
+    heart.className="heart";
+    heart.innerHTML="💖";
+
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.top="0px";
+
+    document.body.appendChild(heart);
+
+    let fall=setInterval(()=>{
+        heart.style.top=(heart.offsetTop+5)+"px";
+    },30);
+
+    heart.onclick=()=>{
+        score++;
+        document.getElementById("score").innerText="Puntos: "+score;
+        heart.remove();
+        clearInterval(fall);
+    };
+
+    setTimeout(()=>{
+        heart.remove();
+        clearInterval(fall);
+    },5000);
+}
+</script>
+
+</body>
+</html>
