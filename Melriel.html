@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Felices 4 meses</title>
+
+<!-- NUEVA TIPOGRAFÍA -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&family=Pacifico&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    overflow: hidden;
+    background: black;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* ESTRELLAS (puntitos blancos simples) */
+.stars {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+}
+
+/* TEXTO CENTRAL */
+.center-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Pacifico', cursive;
+    color: #ff69b4;
+    font-size: 55px;
+    text-align: center;
+    text-shadow: 0 0 15px #ff69b4;
+}
+
+/* PALABRAS */
+.word {
+    position: absolute;
+    color: #ff85c1;
+    white-space: nowrap;
+    animation: fall linear infinite;
+    text-shadow: 0 0 8px #ff69b4;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-50px);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(110vh);
+        opacity: 0;
+    }
+}
+
+/* CORAZONES */
+.heart {
+    position: absolute;
+    font-size: 20px;
+    animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(100vh);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-10vh);
+        opacity: 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="stars"></div>
+
+<div class="center-text">
+    Felices 4 meses juntos <br> mi esposa preciosa 💖
+</div>
+
+<script>
+// ESTRELLAS
+const starsContainer = document.querySelector('.stars');
+for (let i = 0; i < 200; i++) {
+    let star = document.createElement('div');
+    star.classList.add('star');
+    star.style.top = Math.random() * 100 + 'vh';
+    star.style.left = Math.random() * 100 + 'vw';
+    starsContainer.appendChild(star);
+}
+
+// PALABRAS
+const words = [
+"Te amo 💖","Mi vida 💕","Eres mi todo ✨","Mi cielo 🌙","Mi princesa 👑",
+"Eres mi felicidad","Mi razón de sonreír","Mi corazón es tuyo",
+"Eres mi sueño","Mi mundo eres tú","Eres perfecta 💘",
+"Mi amor bonito","Eres mi paz","Siempre tú 💕",
+"Contigo todo es mejor","Mi reina 👑","Eres magia ✨"
+];
+
+function createWord() {
+    let word = document.createElement('div');
+    word.classList.add('word');
+    word.innerText = words[Math.floor(Math.random() * words.length)];
+
+    word.style.left = Math.random() * 100 + 'vw';
+    word.style.fontSize = (Math.random() * 15 + 15) + 'px';
+    word.style.animationDuration = (Math.random() * 4 + 4) + 's';
+
+    document.body.appendChild(word);
+
+    setTimeout(() => word.remove(), 8000);
+}
+setInterval(createWord, 300);
+
+// CORAZONES
+function createHeart() {
+    let heart = document.createElement('div');
+    heart.classList.add('heart');
+    heart.innerHTML = "💖";
+
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+    heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 9000);
+}
+setInterval(createHeart, 500);
+</script>
+
+</body>
+</html>
